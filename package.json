@@ -1,0 +1,79 @@
+{
+  "name": "takeshape-routing",
+  "version": "4.97.0",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "es"
+  ],
+  "repository": "github.com:takeshape/takeshape-routing.git",
+  "author": "asprouse",
+  "license": "MIT",
+  "dependencies": {
+    "query-string": "^6.5.0",
+    "slugg": "^1.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.13",
+    "@types/lodash": "^4.14.130",
+    "@typescript-eslint/eslint-plugin": "^1.11.0",
+    "@typescript-eslint/parser": "^1.11.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-config-xo": "^0.26.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jest": "^22.6.4",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
+    "prettier": "^1.17.1",
+    "rimraf": "^2.5.4",
+    "typescript": "^3.5.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint --ext .ts src",
+    "typecheck": "tsc --skipLibCheck --noEmit",
+    "clean": "rimraf lib es",
+    "prepublishOnly": "npm run lint && npm run test && npm run clean && npm run build",
+    "build": "npm run build:types && npm run build:js && npm run build:es",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --extensions \".js,.ts\" --ignore '**/__tests__'",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions \".js,.ts\" --ignore '**/__tests__'"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "src"
+    ],
+    "testMatch": [
+      "**/*.test.*"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      ".*/__tests__/.*"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 90,
+        "branches": 90,
+        "functions": 90,
+        "lines": 90
+      }
+    }
+  },
+  "sideEffects": false
+}
