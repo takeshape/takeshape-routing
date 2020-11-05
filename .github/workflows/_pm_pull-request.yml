@@ -4,12 +4,6 @@ on:
   pull_request:
     types: [opened]
 
-env:
-  PROJECT_BOARD: "TakeShape"
-  ICEBOX_COLUMN_NAME: "Icebox"
-  STARTED_COLUMN_NAME: "In Progress"
-  BEFORE_REVIEW_COLUMN_NAME: "Waiting on Review"
-
 jobs:
   assign-author:
     name: assign author
@@ -43,6 +37,7 @@ jobs:
           fi
 
       - name: get story name
+        if: steps.extract-id.outputs.clubhouse-id != ''
         id: get-story-name
         env:
           CLUBHOUSE_API_KEY: ${{ secrets.CLUBHOUSE_API_KEY }}
